@@ -6,14 +6,19 @@ PersonList *exitElevator(Elevator *e)
 {
     int currentfloor = (e->currentFloor);
     PersonList *l = (e->persons);
-    while (l)
+    PersonList *h = (PersonList *)malloc(sizeof(PersonList));
+    int n = len(l);
+    int i = 0;
+    while (i < n)
     {
-        if (((l->person)->dest) = currentfloor)
+        if (((l->person)->dest) != currentfloor)
         {
-            l = l->next;
+            h = insert(l->person, h);
         }
+        l = l->next;
+        i++;
     }
-    return l;
+    return h;
 }
 
 PersonList *enterElevator(Elevator *e, PersonList *waitingList)
