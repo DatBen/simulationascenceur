@@ -45,7 +45,7 @@ void stepElevator(Building *b) {
 PersonList *exitElevator(Elevator *e) {
     int currentfloor = (e->currentFloor);
     PersonList *l = (e->persons);
-    PersonList *h = (PersonList *)malloc(sizeof(PersonList));
+    PersonList *h = NULL;
     int n = len(l);
     int i = 0;
     while (i < n) {
@@ -59,10 +59,9 @@ PersonList *exitElevator(Elevator *e) {
 }
 
 PersonList *enterElevator(Elevator *e, PersonList *waitingList) {
-    PersonList *h = (PersonList *)malloc(sizeof(PersonList));
-    int currentfloor = (e->currentFloor);
+        int currentfloor = (e->currentFloor);
     while (waitingList && (len(e->persons) < (e->capacity))) {
-        e->persons = insert(h->person, e->persons);
+        e->persons = insert(waitingList->person, e->persons);
         waitingList = waitingList->next;
     }
     return waitingList;
