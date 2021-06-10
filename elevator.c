@@ -6,7 +6,8 @@
 #include "person.h"
 
 Elevator *create_elevator(int capacity, int current_floor,
-                          PersonList *persons) {
+                          PersonList *persons)
+{
     Elevator *res = (Elevator *)malloc(sizeof(Elevator));
     res->capacity = capacity;
     res->currentFloor = current_floor;
@@ -16,7 +17,8 @@ Elevator *create_elevator(int capacity, int current_floor,
 }
 
 Building *create_building(int nbFloor, Elevator *elevator,
-                          PersonList **waitingLists) {
+                          PersonList **waitingLists)
+{
     Building *res = (Building *)malloc(sizeof(Building));
     res->elevator = elevator;
     res->nbFloor = nbFloor;
@@ -25,32 +27,40 @@ Building *create_building(int nbFloor, Elevator *elevator,
     return res;
 }
 
-void stepElevator(Building *b) {
+void stepElevator(Building *b)
+{
     int cursor = ((b->elevator->currentFloor) - (b->elevator->targetFloor));
-    if (cursor == 0) {
+    if (cursor == 0)
+    {
         b->elevator->persons = exitElevator(b->elevator);
 
         PersonList *pl = *((b->waitingLists) + (b->elevator->currentFloor));
 
         *((b->waitingLists) + (b->elevator->currentFloor)) =
             enterElevator(b->elevator, pl);
-
-    } else if (cursor < 0) {
+    }
+    else if (cursor < 0)
+    {
         b->elevator->currentFloor++;
-    } else if (cursor > 0) {
+    }
+    else if (cursor > 0)
+    {
         b->elevator->currentFloor--;
     }
 }
 
-PersonList *exitElevator(Elevator *e) {
+PersonList *exitElevator(Elevator *e)
+{
     int currentfloor = (e->currentFloor);
     PersonList *l = (e->persons);
     PersonList *h = NULL;
     int n = len(l);
     int i = 0;
-    while (i < n) {
-        if (((l->person)->dest) != currentfloor) {
-            h = insert(l->person, h);
+    while (i < n)
+    {
+        if (((l->person)->dest) != currentfloor)
+        {
+            h = insert_back(l->person, h);
         }
         l = l->next;
         i++;
@@ -58,10 +68,12 @@ PersonList *exitElevator(Elevator *e) {
     return h;
 }
 
-PersonList *enterElevator(Elevator *e, PersonList *waitingList) {
-        int currentfloor = (e->currentFloor);
-    while (waitingList && (len(e->persons) < (e->capacity))) {
-        e->persons = insert(waitingList->person, e->persons);
+PersonList *enterElevator(Elevator *e, PersonList *waitingList)
+{
+    int currentfloor = (e->currentFloor);
+    while (waitingList && (len(e->persons) < (e->capacity)))
+    {
+        e->persons = insert_front(waitingList->person, e->persons);
         waitingList = waitingList->next;
     }
     return waitingList;
