@@ -27,15 +27,7 @@ PersonList *enterElevator(Elevator *e, PersonList *waitingList)
     int currentfloor = (e->currentFloor);
     while (waitingList && (len(e->persons) < (e->capacity)))
     {
-        if (((waitingList->person)->dest) = currentfloor)
-        {
-            e->persons = insert(h->person, e->persons);
-            waitingList = waitingList->next;
-        }
-        else
-        {
-            h = insert(waitingList->person, h);
-        }
+        waitingList = waitingList->next;
     }
-    return h;
+    return waitingList;
 }
