@@ -15,5 +15,6 @@ typedef struct _PersonList
 
 Person *createPerson(int src, int dest);
 PersonList *insert(Person *p, PersonList *list);
+int len(PersonList *l);
 
 #endif
