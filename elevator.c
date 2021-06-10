@@ -1,9 +1,9 @@
 #include "elevator.h"
-#include "person.h"
-#include <stdlib.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 
+#include "person.h"
 
 Elevator *create_elevator(int capacity, int current_floor,
                           PersonList *persons) {
@@ -40,18 +40,16 @@ void stepElevator(Building *b) {
     } else if (cursor > 0) {
         b->elevator->currentFloor--;
     }
+}
 
-PersonList *exitElevator(Elevator *e)
-{
+PersonList *exitElevator(Elevator *e) {
     int currentfloor = (e->currentFloor);
     PersonList *l = (e->persons);
     PersonList *h = (PersonList *)malloc(sizeof(PersonList));
     int n = len(l);
     int i = 0;
-    while (i < n)
-    {
-        if (((l->person)->dest) != currentfloor)
-        {
+    while (i < n) {
+        if (((l->person)->dest) != currentfloor) {
             h = insert(l->person, h);
         }
         l = l->next;
@@ -60,12 +58,10 @@ PersonList *exitElevator(Elevator *e)
     return h;
 }
 
-PersonList *enterElevator(Elevator *e, PersonList *waitingList)
-{
+PersonList *enterElevator(Elevator *e, PersonList *waitingList) {
     PersonList *h = (PersonList *)malloc(sizeof(PersonList));
     int currentfloor = (e->currentFloor);
-    while (waitingList && (len(e->persons) < (e->capacity)))
-    {
+    while (waitingList && (len(e->persons) < (e->capacity))) {
         e->persons = insert(h->person, e->persons);
         waitingList = waitingList->next;
     }
