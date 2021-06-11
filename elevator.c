@@ -12,6 +12,7 @@ Elevator *create_elevator(int capacity, int current_floor,
     res->capacity = capacity;
     res->currentFloor = current_floor;
     res->persons = persons;
+    res->lastFloor = -1;
 
     return res;
 }
@@ -56,16 +57,24 @@ PersonList *exitElevator(Elevator *e)
     PersonList *h = NULL;
     int n = len(l);
     int i = 0;
-    while (i < n)
+    if ((e->lastFloor) != (e->currentFloor))
     {
-        if (((l->person)->dest) != currentfloor)
+        while ((i < n))
         {
-            h = insert_back(l->person, h);
+            if (((l->person)->dest) != currentfloor)
+            {
+                h = insert_front(l->person, h);
+            }
+            l = l->next;
+            i++;
         }
-        l = l->next;
-        i++;
+        (e->lastFloor) = (e->currentFloor);
+        return h;
     }
-    return h;
+    else
+    {
+        return (l);
+    }
 }
 
 PersonList *enterElevator(Elevator *e, PersonList *waitingList)
