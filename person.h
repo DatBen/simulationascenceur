@@ -12,7 +12,8 @@ typedef struct _PersonList {
 } PersonList;
 
 Person *createPerson(int src, int dest);
-PersonList *insert(Person *p, PersonList *list);
+PersonList *insert_front(Person *p, PersonList *list);
+PersonList *insert_back(Person *p, PersonList *list, PersonList *addr);
 int len(PersonList *l);
 
 #endif

@@ -11,6 +11,7 @@ Elevator *create_elevator(int capacity, int current_floor,
     res->capacity = capacity;
     res->currentFloor = current_floor;
     res->persons = persons;
+    res->lastFloor = -1;
 
     return res;
 }
@@ -34,7 +35,6 @@ void stepElevator(Building *b) {
 
         *((b->waitingLists) + (b->elevator->currentFloor)) =
             enterElevator(b->elevator, pl);
-
     } else if (cursor < 0) {
         b->elevator->currentFloor++;
     } else if (cursor > 0) {
@@ -45,12 +45,13 @@ void stepElevator(Building *b) {
 PersonList *exitElevator(Elevator *e) {
     int currentfloor = (e->currentFloor);
     PersonList *l = (e->persons);
-    PersonList *h = (PersonList *)malloc(sizeof(PersonList));
+    PersonList *h = NULL;
     int n = len(l);
     int i = 0;
-    while (i < n) {
+
+    while ((i < n)) {
         if (((l->person)->dest) != currentfloor) {
-            h = insert(l->person, h);
+            h = insert_back(l->person, h, h);
         }
         l = l->next;
         i++;
@@ -59,10 +60,9 @@ PersonList *exitElevator(Elevator *e) {
 }
 
 PersonList *enterElevator(Elevator *e, PersonList *waitingList) {
-    PersonList *h = (PersonList *)malloc(sizeof(PersonList));
     int currentfloor = (e->currentFloor);
     while (waitingList && (len(e->persons) < (e->capacity))) {
-        e->persons = insert(h->person, e->persons);
+        e->persons = insert_front(waitingList->person, e->persons);
         waitingList = waitingList->next;
     }
     return waitingList;
