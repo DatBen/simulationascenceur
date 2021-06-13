@@ -4,16 +4,14 @@
 
 #include "elevator.h"
 
-Person *createPerson(int src, int dest)
-{
+Person *createPerson(int src, int dest) {
     Person *p = (Person *)malloc(sizeof(Person));
     p->dest = dest;
     p->src = src;
     return p;
 }
 
-PersonList *insert_front(Person *p, PersonList *list)
-{
+PersonList *insert_front(Person *p, PersonList *list) {
     PersonList *l = (PersonList *)malloc(sizeof(PersonList));
 
     l->next = list;
@@ -21,31 +19,19 @@ PersonList *insert_front(Person *p, PersonList *list)
     return l;
 }
 
-PersonList *insert_back(Person *p, PersonList *list)
-{
-    PersonList *l = NULL;
-    l = insert_front(p, l);
-    if (list = NULL)
-    {
-        return l;
-    }
-    else
-    {
-        PersonList *temp = list;
-        while (temp->next != NULL)
-        {
-            temp = temp->next;
-        }
-        temp->next = l;
-        return list;
+void insert_back(Person *p, PersonList *list) {
+    if (list->next == NULL) {
+        PersonList *l = insert_front(p, NULL);
+        list->next = l;
+
+    } else {
+        insert_back(p, list->next);
     }
 }
 
-int len(PersonList *l)
-{
+int len(PersonList *l) {
     int i = 0;
-    while (l)
-    {
+    while (l) {
         l = l->next;
         i++;
     }
