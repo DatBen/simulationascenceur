@@ -48,19 +48,16 @@ PersonList *exitElevator(Elevator *e) {
     PersonList *h = NULL;
     int n = len(l);
     int i = 0;
-    if ((e->lastFloor) != (e->currentFloor)) {
-        while ((i < n)) {
-            if (((l->person)->dest) != currentfloor) {
-                insert_back(l->person, h);
-            }
-            l = l->next;
-            i++;
+
+    while ((i < n)) {
+        if (((l->person)->dest) != currentfloor) {
+            insert_back(l->person, h);
         }
-        (e->lastFloor) = (e->currentFloor);
-        return h;
-    } else {
-        return (l);
+        l = l->next;
+        i++;
     }
+    (e->lastFloor) = (e->currentFloor);
+    return h;
 }
 
 PersonList *enterElevator(Elevator *e, PersonList *waitingList) {
