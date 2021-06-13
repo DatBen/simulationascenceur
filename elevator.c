@@ -51,12 +51,11 @@ PersonList *exitElevator(Elevator *e) {
 
     while ((i < n)) {
         if (((l->person)->dest) != currentfloor) {
-            insert_back(l->person, h);
+            h = insert_back(l->person, h, h);
         }
         l = l->next;
         i++;
     }
-    (e->lastFloor) = (e->currentFloor);
     return h;
 }
 

@@ -1,5 +1,6 @@
 #include "person.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "elevator.h"
@@ -19,13 +20,20 @@ PersonList *insert_front(Person *p, PersonList *list) {
     return l;
 }
 
-void insert_back(Person *p, PersonList *list) {
-    if (list->next == NULL) {
+PersonList *insert_back(Person *p, PersonList *list, PersonList *addr) {
+    if (list == NULL) {
+        PersonList *l = insert_front(p, NULL);
+        return l;
+
+    } else if (list->next == NULL) {
         PersonList *l = insert_front(p, NULL);
         list->next = l;
 
+        return addr;
+
     } else {
-        insert_back(p, list->next);
+        insert_back(p, list->next, addr);
+        return addr;
     }
 }
 
